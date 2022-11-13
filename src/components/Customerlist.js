@@ -76,7 +76,8 @@ function Customerlist() {
 					columnDefs={columnDefs}
 					pagination={true}
 					suppressCellFocus={true}
-					paginationPageSize={10} />
+					paginationPageSize={10}
+					animateRows={true} />
 			</div>
 		</>
 	)

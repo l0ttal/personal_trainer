@@ -4,6 +4,8 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 
+import { format } from 'date-fns';
+
 import { TRAINAPI_URL } from '../constants';
 
 function Traininglist() {
@@ -14,6 +16,8 @@ function Traininglist() {
 			field: 'date',
 			sortable: true,
 			filter: true,
+			valueFormatter: params =>
+				format(new Date(params.value), "dd.MM.yyyy hh:mm"),
 		},
 		{
 			field: 'duration',
@@ -36,7 +40,7 @@ function Traininglist() {
 			sortable: true,
 			filter: true,
 		},
-	])
+	]);
 
 	useEffect(() => {
 		gettrainings();
@@ -62,7 +66,8 @@ function Traininglist() {
 					columnDefs={columnDefs}
 					pagination={true}
 					suppressCellFocus={true}
-					paginationPageSize={10} />
+					paginationPageSize={10}
+					animateRows={true} />
 			</div>
 		</>
 	)
