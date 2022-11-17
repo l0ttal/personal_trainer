@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { AgGridReact } from 'ag-grid-react';
+import { TRAINAPI_URL } from '../constants';
 
+import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 
-import { format } from 'date-fns';
+import Button from '@mui/material/Button';
 
-import { TRAINAPI_URL } from '../constants';
+import { format } from 'date-fns';
 
 function Traininglist() {
 	const [trainings, setTrainings] = useState([]);
@@ -40,13 +41,18 @@ function Traininglist() {
 			sortable: true,
 			filter: true,
 		},
+		{
+			width: 120,
+			cellRenderer: params =>
+				<Button color="error" size="small" onClick={() => deleteTraining(params.data)}>Delete</Button>
+		},
 	]);
 
 	useEffect(() => {
-		gettrainings();
+		getTrainings();
 	}, []);
 
-	const gettrainings = () => {
+	const getTrainings = () => {
 		fetch(TRAINAPI_URL)
 			.then(response => {
 				if (response.ok) {
@@ -57,6 +63,20 @@ function Traininglist() {
 			})
 			.then(data => setTrainings(data))
 			.catch(err => console.error(err))
+	}
+
+	const deleteTraining = (data) => {
+		if (window.confirm('Are you sure?')) {
+			fetch('https://customerrest.herokuapp.com/api/trainings/' + data.id, { method: 'DELETE' })
+				.then(response => {
+					if (response.ok) {
+						getTrainings();
+					} else {
+						alert('Something went wrong with delete');
+					}
+				})
+				.catch(err => console.error(err))
+		}
 	}
 
 	return (

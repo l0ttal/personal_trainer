@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { AgGridReact } from 'ag-grid-react';
+import { CUSTAPI_URL } from '../constants';
 
+import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 
-import { CUSTAPI_URL } from '../constants';
+import Button from '@mui/material/Button';
 
 function Customerlist() {
 	const [customers, setCustomers] = useState([]);
@@ -50,6 +51,11 @@ function Customerlist() {
 			filter: true,
 			width: 150,
 		},
+		{
+			width: 120,
+			cellRenderer: params =>
+				<Button color="error" size="small" onClick={() => deleteCustomer(params.data)}>Delete</Button>
+		},
 	])
 
 	useEffect(() => {
@@ -67,6 +73,20 @@ function Customerlist() {
 			})
 			.then(data => setCustomers(data.content))
 			.catch(err => console.error(err))
+	}
+
+	const deleteCustomer = (data) => {
+		if (window.confirm('Are you sure?')) {
+			fetch(data.links[0].href, { method: 'DELETE' })
+				.then(response => {
+					if (response.ok) {
+						getCustomers();
+					} else {
+						alert('Something went wrong with delete');
+					}
+				})
+				.catch(err => console.error(err))
+		}
 	}
 
 	return (
