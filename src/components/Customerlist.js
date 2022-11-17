@@ -7,6 +7,9 @@ import 'ag-grid-community/styles/ag-theme-material.css';
 
 import Button from '@mui/material/Button';
 
+import EditCustomer from "./EditCustomer";
+import AddCustomer from "./AddCustomer";
+
 function Customerlist() {
 	const [customers, setCustomers] = useState([]);
 
@@ -53,6 +56,10 @@ function Customerlist() {
 		},
 		{
 			width: 120,
+			cellRenderer: params => <EditCustomer data={params.data} editcustomer={editCustomer} />
+		},
+		{
+			width: 120,
 			cellRenderer: params =>
 				<Button color="error" size="small" onClick={() => deleteCustomer(params.data)}>Delete</Button>
 		},
@@ -89,8 +96,41 @@ function Customerlist() {
 		}
 	}
 
+	const editCustomer = (customer, url) => {
+		fetch(url, {
+			method: 'PUT',
+			headers: { 'Content-type': 'application/json' },
+			body: JSON.stringify(customer),
+		})
+			.then(response => {
+				if (response.ok) {
+					getCustomers();
+				} else {
+					alert('Something went wrong with updating the customer');
+				}
+			})
+			.catch(err => console.error(err))
+	}
+
+	const addCustomer = (customer) => {
+		fetch(CUSTAPI_URL, {
+			method: 'POST',
+			headers: { 'Content-type': 'application/json' },
+			body: JSON.stringify(customer),
+		})
+			.then(response => {
+				if (response.ok) {
+					getCustomers();
+				} else {
+					alert('Something went wrong with adding the customer');
+				}
+			})
+			.catch(err => console.error(err))
+	}
+
 	return (
 		<>
+			<AddCustomer addcustomer={addCustomer} />
 			<div className="ag-theme-material" style={{ height: 620, width: '100%', margin: 'auto' }}>
 				<AgGridReact rowData={customers}
 					columnDefs={columnDefs}

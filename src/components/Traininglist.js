@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TRAINAPI_URL } from '../constants';
+import { GET_TRAININGS_API_URL, TRAINAPI_URL } from '../constants';
 
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -8,6 +8,8 @@ import 'ag-grid-community/styles/ag-theme-material.css';
 import Button from '@mui/material/Button';
 
 import { format } from 'date-fns';
+
+import AddTraining from "./AddTraining";
 
 function Traininglist() {
 	const [trainings, setTrainings] = useState([]);
@@ -18,7 +20,7 @@ function Traininglist() {
 			sortable: true,
 			filter: true,
 			valueFormatter: params =>
-				format(new Date(params.value), "dd.MM.yyyy hh:mm"),
+				format(new Date(params.value), 'dd.MM.yyyy hh:mm'),
 		},
 		{
 			field: 'duration',
@@ -53,7 +55,7 @@ function Traininglist() {
 	}, []);
 
 	const getTrainings = () => {
-		fetch(TRAINAPI_URL)
+		fetch(GET_TRAININGS_API_URL)
 			.then(response => {
 				if (response.ok) {
 					return response.json();
@@ -67,7 +69,7 @@ function Traininglist() {
 
 	const deleteTraining = (data) => {
 		if (window.confirm('Are you sure?')) {
-			fetch('https://customerrest.herokuapp.com/api/trainings/' + data.id, { method: 'DELETE' })
+			fetch(TRAINAPI_URL + '/' + data.id, { method: 'DELETE' })
 				.then(response => {
 					if (response.ok) {
 						getTrainings();
@@ -79,8 +81,26 @@ function Traininglist() {
 		}
 	}
 
+	const addTraining = (training) => {
+		training = { ...training, date: new Date(training.date).toISOString() };
+		fetch(TRAINAPI_URL, {
+			method: 'POST',
+			headers: { 'Content-type': 'application/json' },
+			body: JSON.stringify(training),
+		})
+			.then(response => {
+				if (response.ok) {
+					getTrainings();
+				} else {
+					alert('Something went wrong with adding the training');
+				}
+			})
+			.catch(err => console.error(err))
+	}
+
 	return (
 		<>
+			<AddTraining addtraining={addTraining} />
 			<div className="ag-theme-material" style={{ height: 620, width: '100%', margin: 'auto' }}>
 				<AgGridReact rowData={trainings}
 					columnDefs={columnDefs}
