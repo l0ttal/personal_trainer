@@ -10,6 +10,8 @@ import Button from '@mui/material/Button';
 import EditCustomer from "./EditCustomer";
 import AddCustomer from "./AddCustomer";
 
+import Grid from '@mui/material/Grid';
+
 function Customerlist() {
 	const [customers, setCustomers] = useState([]);
 
@@ -130,15 +132,22 @@ function Customerlist() {
 
 	return (
 		<>
-			<AddCustomer addcustomer={addCustomer} />
-			<div className="ag-theme-material" style={{ height: 620, width: '100%', margin: 'auto' }}>
-				<AgGridReact rowData={customers}
-					columnDefs={columnDefs}
-					pagination={true}
-					suppressCellFocus={true}
-					paginationPageSize={10}
-					animateRows={true} />
-			</div>
+			<Grid container spacing={3}>
+				<Grid item xs={12}>
+					<AddCustomer addcustomer={addCustomer} />
+				</Grid>
+				<Grid item xs={11}>
+					<div className="ag-theme-material" style={{ height: 620, width: '100%', margin: 'auto' }}>
+						<AgGridReact rowData={customers}
+							columnDefs={columnDefs}
+							pagination={true}
+							suppressCellFocus={true}
+							paginationPageSize={10}
+							animateRows={true}
+							alwaysShowHorizontalScroll={true} />
+					</div>
+				</Grid>
+			</Grid>
 		</>
 	)
 }

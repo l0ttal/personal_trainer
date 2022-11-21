@@ -13,6 +13,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { DateTimePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+
 export default function AddTraining(props) {
 	const [open, setOpen] = useState(false);
 	const [customers, setCustomers] = useState([]);
@@ -60,25 +64,26 @@ export default function AddTraining(props) {
 			</Button>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>New training</DialogTitle>
-				<DialogContent>
+				<DialogContent margin="5px">
+					<LocalizationProvider dateAdapter={AdapterDateFns}>
+						<DateTimePicker
+							renderInput={(props) => <TextField {...props} />}
+							label="Date & Time"
+							value={training.date}
+							onChange={(newValue) => {
+								setTraining({ ...training, date: newValue });
+							}}
+						/>
+					</LocalizationProvider>
 					<TextField
 						margin="dense"
-						label="Date"
-						value={training.date}
-						onChange={e => setTraining({ ...training, date: e.target.value })}
-						fullWidth
-						variant="standard"
-					/>
-					<TextField
-						margin="dense"
-						label="Duration"
+						label="Duration (min)"
 						value={training.duration}
 						onChange={e => setTraining({ ...training, duration: e.target.value })}
 						fullWidth
 						variant="standard"
 					/>
 					<TextField
-						margin="dense"
 						label="Activity"
 						value={training.activity}
 						onChange={e => setTraining({ ...training, activity: e.target.value })}
@@ -86,7 +91,7 @@ export default function AddTraining(props) {
 						variant="standard"
 					/>
 					<Box noValidate component="form">
-						<FormControl sx={{ margin: 2, width: '60%' }}>
+						<FormControl sx={{ width: '60%' }}>
 							<InputLabel>Select customer</InputLabel>
 							<Select
 								label="Customer"

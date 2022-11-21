@@ -11,6 +11,8 @@ import { format } from 'date-fns';
 
 import AddTraining from "./AddTraining";
 
+import Grid from '@mui/material/Grid';
+
 function Traininglist() {
 	const [trainings, setTrainings] = useState([]);
 
@@ -100,15 +102,22 @@ function Traininglist() {
 
 	return (
 		<>
-			<AddTraining addtraining={addTraining} />
-			<div className="ag-theme-material" style={{ height: 620, width: '100%', margin: 'auto' }}>
-				<AgGridReact rowData={trainings}
-					columnDefs={columnDefs}
-					pagination={true}
-					suppressCellFocus={true}
-					paginationPageSize={10}
-					animateRows={true} />
-			</div>
+			<Grid container spacing={3}>
+				<Grid item xs={12}>
+					<AddTraining addtraining={addTraining} />
+				</Grid>
+				<Grid item xs={11}>
+					<div className="ag-theme-material" style={{ height: 620, width: '100%', margin: 'auto' }}>
+						<AgGridReact rowData={trainings}
+							columnDefs={columnDefs}
+							pagination={true}
+							suppressCellFocus={true}
+							paginationPageSize={10}
+							animateRows={true}
+							alwaysShowHorizontalScroll={true} />
+					</div>
+				</Grid>
+			</Grid>
 		</>
 	)
 }
