@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import Home from './Home';
 import Customerlist from './Customerlist';
 import Traininglist from './Traininglist';
+import Calendar from './Calendar';
 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-
 import Box from '@mui/material/Box';
 
 function TabApp() {
@@ -23,10 +23,12 @@ function TabApp() {
 					<Tab value="home" label="Home" />
 					<Tab value="customerlist" label="Customers" />
 					<Tab value="traininglist" label="Training" />
+					<Tab value="calendar" label="Calendar" />
 				</Tabs>
 				{value === 'home' && <Home />}
 				{value === 'customerlist' && <Customerlist />}
 				{value === 'traininglist' && <Traininglist />}
+				{value === 'calendar' && <Calendar />}
 			</Box>
 		</>
 	);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { CUSTAPI_URL } from '../constants';
 
 import { AgGridReact } from 'ag-grid-react';
@@ -6,13 +6,15 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+
+import CsvExportModule from '@ag-grid-community/csv-export';
 
 import EditCustomer from "./EditCustomer";
 import AddCustomer from "./AddCustomer";
 
-import Grid from '@mui/material/Grid';
-
 function Customerlist() {
+	const gridRef = useRef();
 	const [customers, setCustomers] = useState([]);
 
 	const [columnDefs] = useState([
@@ -130,11 +132,16 @@ function Customerlist() {
 			.catch(err => console.error(err))
 	}
 
+	const onCSVExport = useCallback(() => {
+		gridRef.current.api.exportDataAsCsv();
+	}, []);
+
 	return (
 		<>
 			<Grid container spacing={3}>
 				<Grid item xs={12}>
 					<AddCustomer addcustomer={addCustomer} />
+					<Button onClick={onCSVExport}>Export to CSV</Button>
 				</Grid>
 				<Grid item xs={11}>
 					<div className="ag-theme-material" style={{ height: 620, width: '100%', margin: 'auto' }}>
@@ -144,7 +151,9 @@ function Customerlist() {
 							suppressCellFocus={true}
 							paginationPageSize={10}
 							animateRows={true}
-							alwaysShowHorizontalScroll={true} />
+							alwaysShowHorizontalScroll={true}
+							ref={gridRef}
+						/>
 					</div>
 				</Grid>
 			</Grid>
