@@ -18,7 +18,7 @@ function TabApp() {
 
 	return (
 		<>
-			<Box sx={{ flexGrow: 1, display: 'flex', height: 224 }}>
+			<Box sx={{ flexGrow: 1, display: 'flex', height: '227' }}>
 				<Tabs value={value} onChange={handleChange} orientation="vertical" sx={{ borderRight: 1, borderColor: 'divider' }}>
 					<Tab value="home" label="Home" />
 					<Tab value="customerlist" label="Customers" />
