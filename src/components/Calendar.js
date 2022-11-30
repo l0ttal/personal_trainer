@@ -4,7 +4,7 @@ import { GET_TRAININGS_API_URL } from '../constants';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction'
+import interactionPlugin from '@fullcalendar/interaction';
 
 import Grid from '@mui/material/Grid';
 
@@ -42,6 +42,22 @@ function Calendar() {
 						}}
 						initialView='dayGridWeek'
 						events={trainings}
+						eventContent={function (arg) {
+							if (arg.view.type == 'dayGridMonth') {
+								return {
+									html: arg.timeText + '<br>' + arg.event._def.extendedProps.customer.firstname + ' ' + arg.event._def.extendedProps.customer.lastname + ' / ' + arg.event._def.extendedProps.activity + '<br>',
+								}
+							} else {
+								return {
+									html: arg.timeText + '<br>' + arg.event.extendedProps.customer.firstname + ' ' + arg.event.extendedProps.customer.lastname + ' / ' + arg.event.extendedProps.activity + '<br>',
+								}
+							}
+						}}
+						eventTimeFormat={{
+							hour: '2-digit',
+							minute: '2-digit',
+							hour12: false
+						}}
 					/>
 				</Grid>
 			</Grid>
