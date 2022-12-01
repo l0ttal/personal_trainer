@@ -31,7 +31,7 @@ function Calendar() {
 	return (
 		<>
 			<Grid container spacing={3} sx={{ margin: '50px' }}>
-				<Grid item xs={12}>
+				<Grid item xs={10}>
 					<FullCalendar
 						plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
 						firstDay={1}
@@ -56,7 +56,6 @@ function Calendar() {
 						eventTimeFormat={{
 							hour: '2-digit',
 							minute: '2-digit',
-							hour12: false
 						}}
 					/>
 				</Grid>

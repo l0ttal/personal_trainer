@@ -22,6 +22,7 @@ function Traininglist() {
 		{
 			field: 'date',
 			sortable: true,
+			resizable: true,
 			filter: true,
 			valueFormatter: params =>
 				format(new Date(params.value), 'dd.MM.yyyy hh:mm'),
@@ -29,26 +30,28 @@ function Traininglist() {
 		{
 			field: 'duration',
 			sortable: true,
+			resizable: true,
 			filter: true,
-			width: 150,
 		},
 		{
 			field: 'activity',
 			sortable: true,
+			resizable: true,
 			filter: true,
 		},
 		{
 			field: 'customer.firstname',
 			sortable: true,
+			resizable: true,
 			filter: true,
 		},
 		{
 			field: 'customer.lastname',
 			sortable: true,
+			resizable: true,
 			filter: true,
 		},
 		{
-			width: 120,
 			cellRenderer: params =>
 				<Button color="error" size="small" onClick={() => deleteTraining(params.data)}>Delete</Button>
 		},
@@ -114,14 +117,13 @@ function Traininglist() {
 					<Button onClick={onCSVExport}>Export to CSV</Button>
 				</Grid>
 				<Grid item xs={11}>
-					<div className="ag-theme-material" style={{ height: 620, width: '100%', margin: 'auto' }}>
+					<div className="ag-theme-material" style={{ height: 620, margin: 'auto' }}>
 						<AgGridReact rowData={trainings}
 							columnDefs={columnDefs}
 							pagination={true}
 							suppressCellFocus={true}
 							paginationPageSize={10}
 							animateRows={true}
-							alwaysShowHorizontalScroll={true}
 							ref={gridRef}
 						/>
 					</div>

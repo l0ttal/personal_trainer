@@ -21,49 +21,58 @@ function Customerlist() {
 		{
 			field: 'firstname',
 			sortable: true,
+			resizable: true,
 			filter: true,
-			width: 150,
+
 		},
 		{
 			field: 'lastname',
 			sortable: true,
+			resizable: true,
 			filter: true,
-			width: 150,
+
 		},
 		{
 			field: 'streetaddress',
 			sortable: true,
+			resizable: true,
 			filter: true,
 		},
 		{
 			field: 'postcode',
 			sortable: true,
+			resizable: true,
 			filter: true,
-			width: 150,
+
 		},
 		{
 			field: 'city',
 			sortable: true,
+			resizable: true,
 			filter: true,
-			width: 150,
+
 		},
 		{
 			field: 'email',
 			sortable: true,
+			resizable: true,
 			filter: true,
 		},
 		{
 			field: 'phone',
 			sortable: true,
+			resizable: true,
 			filter: true,
-			width: 150,
+
 		},
 		{
-			width: 120,
+			resizable: true,
+
 			cellRenderer: params => <EditCustomer data={params.data} editcustomer={editCustomer} />
 		},
 		{
-			width: 120,
+			resizable: true,
+
 			cellRenderer: params =>
 				<Button color="error" size="small" onClick={() => deleteCustomer(params.data)}>Delete</Button>
 		},
@@ -144,14 +153,13 @@ function Customerlist() {
 					<Button onClick={onCSVExport}>Export to CSV</Button>
 				</Grid>
 				<Grid item xs={11}>
-					<div className="ag-theme-material" style={{ height: 620, width: '100%', margin: 'auto' }}>
+					<div className="ag-theme-material" style={{ height: 620, margin: 'auto' }}>
 						<AgGridReact rowData={customers}
 							columnDefs={columnDefs}
 							pagination={true}
 							suppressCellFocus={true}
 							paginationPageSize={10}
 							animateRows={true}
-							alwaysShowHorizontalScroll={true}
 							ref={gridRef}
 						/>
 					</div>
