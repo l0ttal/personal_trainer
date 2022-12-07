@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { CUSTAPI_URL } from '../constants';
+import EditCustomer from './EditCustomer';
+import AddCustomer from './AddCustomer';
 
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -9,9 +11,6 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 import CsvExportModule from '@ag-grid-community/csv-export';
-
-import EditCustomer from "./EditCustomer";
-import AddCustomer from "./AddCustomer";
 
 function Customerlist() {
 	const gridRef = useRef();
@@ -43,6 +42,7 @@ function Customerlist() {
 			sortable: true,
 			resizable: true,
 			filter: true,
+			width: 125,
 
 		},
 		{
@@ -50,6 +50,7 @@ function Customerlist() {
 			sortable: true,
 			resizable: true,
 			filter: true,
+			width: 150,
 
 		},
 		{
@@ -63,18 +64,19 @@ function Customerlist() {
 			sortable: true,
 			resizable: true,
 			filter: true,
+			width: 150,
 
 		},
 		{
 			resizable: true,
-
+			width: 125,
 			cellRenderer: params => <EditCustomer data={params.data} editcustomer={editCustomer} />
 		},
 		{
 			resizable: true,
-
+			width: 125,
 			cellRenderer: params =>
-				<Button color="error" size="small" onClick={() => deleteCustomer(params.data)}>Delete</Button>
+				<Button color='error' size='small' onClick={() => deleteCustomer(params.data)}>Delete</Button>
 		},
 	])
 
@@ -153,7 +155,7 @@ function Customerlist() {
 					<Button onClick={onCSVExport}>Export to CSV</Button>
 				</Grid>
 				<Grid item xs={11}>
-					<div className="ag-theme-material" style={{ height: 620, margin: 'auto' }}>
+					<div className='ag-theme-material' style={{ height: 620, margin: 'auto' }}>
 						<AgGridReact rowData={customers}
 							columnDefs={columnDefs}
 							pagination={true}

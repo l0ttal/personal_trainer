@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { GET_TRAININGS_API_URL } from '../constants';
 
 import FullCalendar from '@fullcalendar/react';
@@ -7,6 +7,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 import Grid from '@mui/material/Grid';
+
+import { format } from 'date-fns';
 
 function Calendar() {
 	const [trainings, setTrainings] = useState([]);
@@ -40,7 +42,7 @@ function Calendar() {
 							center: 'title',
 							right: 'dayGridMonth,timeGridWeek,timeGridDay'
 						}}
-						initialView='dayGridWeek'
+						initialView='dayGridMonth'
 						events={trainings}
 						eventContent={function (arg) {
 							if (arg.view.type == 'dayGridMonth') {

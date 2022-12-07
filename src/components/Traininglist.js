@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { GET_TRAININGS_API_URL, TRAINAPI_URL } from '../constants';
 
 import { AgGridReact } from 'ag-grid-react';
@@ -12,7 +12,7 @@ import { format } from 'date-fns';
 
 import CsvExportModule from '@ag-grid-community/csv-export';
 
-import AddTraining from "./AddTraining";
+import AddTraining from './AddTraining';
 
 function Traininglist() {
 	const gridRef = useRef();
@@ -53,7 +53,7 @@ function Traininglist() {
 		},
 		{
 			cellRenderer: params =>
-				<Button color="error" size="small" onClick={() => deleteTraining(params.data)}>Delete</Button>
+				<Button color='error' size='small' onClick={() => deleteTraining(params.data)}>Delete</Button>
 		},
 	]);
 
@@ -117,7 +117,7 @@ function Traininglist() {
 					<Button onClick={onCSVExport}>Export to CSV</Button>
 				</Grid>
 				<Grid item xs={11}>
-					<div className="ag-theme-material" style={{ height: 620, margin: 'auto' }}>
+					<div className='ag-theme-material' style={{ height: 620, margin: 'auto' }}>
 						<AgGridReact rowData={trainings}
 							columnDefs={columnDefs}
 							pagination={true}

@@ -21,20 +21,20 @@ function TabApp() {
 	return (
 		<>
 			<Box sx={{ width: '100%' }}>
-				<AppBar position="static">
+				<AppBar position='static'>
 					<Tabs
 						value={value}
 						onChange={handleChange}
-						indicatorColor="secondary"
-						textColor="inherit"
-						variant="fullWidth"
-						aria-label="full width tabs example"
+						indicatorColor='secondary'
+						textColor='inherit'
+						variant='fullWidth'
+						aria-label='full width tabs example'
 					>
-						<Tab value="home" label="Home" />
-						<Tab value="customerlist" label="Customers" />
-						<Tab value="traininglist" label="Training" />
-						<Tab value="calendar" label="Calendar" />
-						<Tab value="stats" label="Stats" />
+						<Tab value='home' label='Home' />
+						<Tab value='customerlist' label='Customers' />
+						<Tab value='traininglist' label='Training' />
+						<Tab value='calendar' label='Calendar' />
+						<Tab value='stats' label='Stats' />
 					</Tabs>
 				</AppBar>
 				{value === 'home' && <Home />}
